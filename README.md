@@ -44,6 +44,19 @@ choco install jq
 ```sh
 cat .env | grep -v '^#' | grep -v '^\s*$' | awk -F= '{gsub(/"/, "\\\"", $2); print "\"" $1 "\": \"" $2 "\","}' | sed '$ s/,$//' | awk 'BEGIN {print "{"} {print} END {print "}"}'
 ```
+# IMPORTANT⚠️: This command doesnot works directly in windows, you have to be in Git Bash, WSL, etc. terminal
+
+If you are doing this in **Powershell**, here is the seperate command. Rest is same !
+
+```sh
+(Get-Content .env |
+    Where-Object { $_ -notmatch '^\s*$' -and $_ -notmatch '^\s*#' } |
+    ForEach-Object {
+        $parts = $_ -split '=', 2
+        '"' + $parts[0] + '": "' + ($parts[1].Replace('"', '\"')) + '"'
+    }) -join ",`n" | 
+    ForEach-Object { "{`n$_`n}" }
+```
 
 ### **Output**
 The resulting JSON will be **printed directly in the terminal**.
@@ -62,6 +75,14 @@ The resulting JSON will be **printed directly in the terminal**.
 
 ```sh
 jq -r 'to_entries[] | "\(.key)=\(.value)"' input.json
+```
+# IMPORTANT⚠️: This command doesnot works directly in windows, you have to be in Git Bash, WSL, etc. terminal
+
+If you are doing this in **Powershell**, here is the seperate command. Rest is same !
+
+```sh
+(Get-Content input.json | ConvertFrom-Json).psobject.Properties |
+    ForEach-Object { "$($_.Name)=$($_.Value)" }
 ```
 
 ### **Output**
