@@ -1,5 +1,9 @@
-# ENV-JSON
+
 This repo has the one line code to either convert .env file into a json file or a json file into env
+
+🕹️ More Cheatcodes Coming Soon
+
+Stay updated — and if you found this useful, drop a ⭐ on the repo 😄
 
 # 🔄 ENV ↔ JSON Conversion Guide
 
@@ -16,7 +20,10 @@ for more: https://jqlang.org/download/
 ```sh
 sudo apt install jq
 ```
-
+### **Mac**
+```sh
+brew install jq
+```
 ### **Windows (Chocolatey)**
 ```sh
 choco install jq
